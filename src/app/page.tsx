@@ -4,6 +4,8 @@
 import { useState } from "react";
 import Controls from "@/components/Controls";
 import Results from "@/components/Results";
+import dynamic from "next/dynamic";
+const CapacitySweep = dynamic(() => import("@/components/CapacitySweep"), { ssr: false });
 
 export default function Page() {
   const [loading, setLoading] = useState(false);
@@ -43,6 +45,7 @@ export default function Page() {
       </p>
       <Controls onRun={onRun} disabled={loading} />
       <Results result={result} loading={loading} />
+      <CapacitySweep/>
     </main>
   );
 }

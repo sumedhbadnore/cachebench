@@ -2,6 +2,8 @@
 "use client";
 
 import { useMemo } from "react";
+import dynamic from "next/dynamic";
+const Charts = dynamic(() => import("./Charts"), { ssr: false });
 
 export default function Results({
   result,
@@ -37,7 +39,7 @@ export default function Results({
   if (!result) return null;
 
   return (
-    <div className="rounded-2xl border border-neutral-800 p-4 space-y-3">
+    <div className="rounded-2xl border border-neutral-800 p-4 space-y-4">
       <h2 className="text-xl font-semibold">Results</h2>
       <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-sm">
         <Metric label="Hits" value={result.hits} />
@@ -46,12 +48,16 @@ export default function Results({
         <Metric label="Avg latency" value={result.avgLatencyMs.toFixed(3) + " ms"} />
         <Metric label="Ops" value={result.totalOps} />
       </div>
+
       <button
         onClick={downloadCSV}
         className="rounded-xl border border-neutral-700 px-3 py-2 text-sm"
       >
         Download CSV
       </button>
+
+      {/* Charts */}
+      <Charts result={result} />
     </div>
   );
 }
