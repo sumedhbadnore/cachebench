@@ -15,7 +15,7 @@ export default function Controls({
   const [cacheLatencyMs, setCacheLatencyMs] = useState(1);
   const [missLatencyMs, setMissLatencyMs] = useState(20);
   const [warmup, setWarmup] = useState(0);
-  const [traceText, setTraceText] = useState("A B A C A D A B A C");
+  const [traceText, setTraceText] = useState("A B C A B C A B C A B C A B C A B C D E F D E F D E F D E F D E F");
 
   return (
     <div className="space-y-3 rounded-2xl border border-neutral-800 p-4">

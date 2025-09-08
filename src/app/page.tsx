@@ -4,7 +4,9 @@ import { useState } from "react";
 import Controls from "@/components/Controls";
 import Results from "@/components/Results";
 import dynamic from "next/dynamic";
-const CapacitySweep = dynamic(() => import("@/components/CapacitySweep"), { ssr: false });
+const CapacitySweep = dynamic(() => import("@/components/CapacitySweep"), {
+  ssr: false,
+});
 
 type RunParams = {
   policy: string;
@@ -23,12 +25,12 @@ export default function Page() {
   const onRun = async (params: RunParams) => {
     setLoading(true);
     setResult(null);
-    setLastParams(params);            // keep the params used
+    setLastParams(params); // keep the params used
     try {
       const res = await fetch("/api/simulate", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify(params)
+        body: JSON.stringify(params),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || "Request failed");
@@ -42,7 +44,15 @@ export default function Page() {
 
   return (
     <main className="mx-auto max-w-3xl p-6 space-y-6">
-      <h1 className="text-3xl font-bold">CacheBench</h1>
+      <header className="flex items-center justify-between">
+        <h1 className="text-3xl font-bold">CacheBench</h1>
+        <a
+          href="/docs"
+          className="text-sm rounded-xl border border-neutral-700 px-3 py-1 hover:bg-neutral-900"
+        >
+          Docs
+        </a>
+      </header>
       <Controls onRun={onRun} disabled={loading} />
       <Results result={result} loading={loading} />
       <CapacitySweep baseParams={lastParams} />
