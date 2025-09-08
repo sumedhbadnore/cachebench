@@ -26,7 +26,7 @@ export default function Charts({ result }: { result: {
     { name: "Misses", value: result.misses }
   ];
 
-  // Clamp very small values to show a visible arc
+  // Clamp tiny values so the arc is visible
   const pct = Math.max(1, Math.round(result.hitRate * 100));
   const radialData = [{ name: "HitRate", value: pct }];
 
@@ -88,7 +88,6 @@ export default function Charts({ result }: { result: {
               <RadialBar
                 dataKey="value"
                 angleAxisId={0}
-                clockWise
                 barSize={14}
                 cornerRadius={10}
                 fill={COLORS.bar}
